@@ -27,7 +27,11 @@ export default function Home() {
 
   const handleOnSelectRepo = (repo:Repository)=>{
     dispatch(setCurrentRepo(repo));
-    router?.push('/repo/'+repo.name)
+    router?.push('/'+repo.full_name)
+  }
+
+  const fetchMoreData = ()=>{
+    
   }
 
   return (
@@ -56,13 +60,20 @@ export default function Home() {
               : error?
               <Typography>Error: {error}</Typography>
               :
-              <Box className="infinite-table" sx={{borderColor: 'primary.contrastText'}}>
-                {
-                  _.map(repos,(v:Repository,i:number)=>(
-                    <RepoBox key={i} repo={v} handleOnSelectRepo={handleOnSelectRepo}/>
-                  ))
-                }
-              </Box>
+              <InfiniteScroll
+                dataLength={repos.length}
+                next={fetchMoreData}
+                hasMore={true}
+                loader={<Typography>Loading...</Typography>}
+              >
+                <Box className="infinite-table" sx={{borderColor: 'primary.contrastText'}}>
+                  {
+                    _.map(repos,(v:Repository,i:number)=>(
+                      <RepoBox key={i} repo={v} handleOnSelectRepo={handleOnSelectRepo}/>
+                    ))
+                  }
+                </Box>
+              </InfiniteScroll>
             }
           </Grid2>
         </Grid2>

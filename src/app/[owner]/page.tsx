@@ -11,6 +11,6 @@ export default function Page({ params }:any) {
   const { owner,repo } = React.use<any>(params)
 
   return (
-    <Typography sx={{textAlign:'center'}}>{owner+"/"+repo}</Typography>
+    <Typography sx={{textAlign:'center'}}>{owner}</Typography>
   )
 }
