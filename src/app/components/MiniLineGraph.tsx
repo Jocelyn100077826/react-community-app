@@ -31,27 +31,7 @@ const months = [
   ];
   
 
-export default function MiniLineGraph({url}:{url:string}) {
-    const [commits,setCommits]=useState<number[]>()
-
-    // useEffect(()=>{
-    //     if (_.isEmpty(url)) {
-    //       console.error("Unexpected Error Occured");
-    //       return;
-    //     }
-        
-    //     axios.get(url)
-    //       .then(response => {
-    //         setCommits(response.data.items);
-    //       })
-    //       .catch(error => {
-    //         console.error('Error fetching trending repositories:', error);
-    //       });
-    // }, []);
-
-    const processCommits =()=>{
-
-    }
+export default function MiniLineGraph() {
 
     return (
         <ResponsiveChartContainer

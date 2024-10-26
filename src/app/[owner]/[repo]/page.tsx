@@ -1,50 +1,53 @@
 'use client'
-import * as React from 'react'
-import Image from 'next/image'
-//MUI libraries
-import { Typography,Grid2,Box,TextField } from "@mui/material";
-//Other
+import React,{useEffect,useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/app/redux/store';
+import { fetchRepoRequest }  from '@/app/redux/slices/repoSlice';
+
+//UI
+import { Typography,Grid2,Box,Link } from "@mui/material";
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import BookIcon from '@mui/icons-material/Book';
+import PolylineIcon from '@mui/icons-material/Polyline';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CircleIcon from '@mui/icons-material/Circle';
 
 export default function Page({ params }:any) {
-  const { owner,repo  } = React.use<any>(params)
-  const { currentRepo } = useSelector((state: RootState) => state.repo);
-  
+  const dispatch: AppDispatch = useDispatch();
+  const [init, setInit] = useState<boolean>(false);
+  const { owner,repo } = React.use<any>(params)
+  const { currentRepo, loading, error } = useSelector((state: RootState) => state.repo);
+
+  useEffect(() => {
+    let search = owner+"/"+repo
+    dispatch(fetchRepoRequest(search));
+    setInit(true);
+  }, [dispatch]);
+
+  if(error){
+    return(<Typography>{error}</Typography>)
+  }
+  if(loading||!init){
+    return(<Typography>Loading...</Typography>)
+  }
   if(!currentRepo){
     return(<Typography>Cannot find repo</Typography>)
   }
   return (
     <Grid2 container spacing={2} justifyContent={'center'}>
       <Grid2 size={{ xs: 12, md: 8 }}>
-        <Box sx={{bgcolor:'background.paper',borderColor: 'primary.contrastText'}}>
-          <Typography sx={{textAlign:'center'}}>{owner}</Typography>
-          <Typography sx={{textAlign:'center'}}>{currentRepo.url}</Typography>
+        <Box sx={{bgcolor:'background.paper',borderColor: 'primary.contrastText',p:1,borderRadius:2}}>
+          <Typography sx={{pb:1}}><BookIcon/>
+            <Link href={currentRepo.owner.html_url} target="_blank" sx={{color:'#2a86f8'}} underline="none"> {owner} </Link>/
+            <Link href={currentRepo.html_url} target="_blank" sx={{color:'#2a86f8',fontWeight:'bold'}} underline="none"> {repo}</Link>
+          </Typography>
+          <Typography variant='subtitle1' sx={{pb:2}}>{currentRepo.description}</Typography>
+          <Typography variant='subtitle2' color="textSecondary" gutterBottom><CircleIcon fontSize='small'/> {currentRepo.language?currentRepo.language:"Not Stated"}</Typography>
+          <Typography variant='subtitle2' color="textSecondary" gutterBottom><StarBorderIcon fontSize='small'/> {currentRepo.stargazers_count}</Typography>
+          <Typography variant='subtitle2' color="textSecondary" gutterBottom><VisibilityIcon fontSize='small'/> {currentRepo.watchers_count}</Typography>
+          <Typography variant='subtitle2' color="textSecondary" gutterBottom><PolylineIcon fontSize='small'/> {currentRepo.forks}</Typography>
+          
         </Box>
-      </Grid2>
-        <Grid2 container size={12} justifyContent={'center'}>
-          <Grid2 container size={{ xs: 12, md: 6 }}>
-            <Box>
-              <Grid2 container>
-                <Grid2 size={2}>
-                  <Image
-                    src={currentRepo.owner.avatar_url}
-                    width={150}
-                    height={150}
-                    alt="Picture of the author"
-                  />
-                </Grid2>
-                <Grid2 size={10}>
-                  <Typography sx={{p:1}}>{currentRepo.owner.login}</Typography>
-                </Grid2>
-              </Grid2>
-            </Box>
-        </Grid2>
-        <Grid2 size={{ xs: 12, md: 2 }}>
-          <Box className="sort-box" sx={{bgcolor:'background.paper',borderColor: 'primary.contrastText',position:'sticky',top:10}}>
-            <Typography sx={{textAlign:'center'}}>{currentRepo.description}</Typography>
-          </Box>
-        </Grid2>
       </Grid2>
     </Grid2>
   )

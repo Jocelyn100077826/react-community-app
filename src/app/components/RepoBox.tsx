@@ -10,8 +10,8 @@ import CircleIcon from '@mui/icons-material/Circle';
 export default function RepoBox({repo,handleOnSelectRepo}:{repo:Repository,handleOnSelectRepo:Function}) {
     
     return (
-        <Card key={repo.id} sx={{bgcolor:'background.paper',borderColor: 'primary.contrastText',borderRadius:0}} style={{borderBottomWidth:"1px"}}>
-            <CardActionArea sx={{padding:1}} onClick={() => handleOnSelectRepo(repo)}>
+        <Card key={repo.id} sx={{bgcolor:'background.paper',borderRadius:0}} style={{borderBottom:"1px solid rgba(0,0,0,0.15)"}}>
+            <CardActionArea sx={{p:1}} onClick={() => handleOnSelectRepo(repo)}>
                 <Grid2 container spacing={2}>
                     <Grid2 size={9}>
                         <Box>
@@ -21,15 +21,15 @@ export default function RepoBox({repo,handleOnSelectRepo}:{repo:Repository,handl
                     </Grid2>
                     <Grid2 size={3}>
                         <Box>
-                            <MiniLineGraph url={repo.commits_url}/>
+                            <MiniLineGraph/>
                         </Box>
                     </Grid2>
                     <Grid2 size={12}>
                         <Box className='flex-box-left'>
                             <CircleIcon fontSize='small'/>
-                            <Typography variant='caption' sx={{paddingTop:"2px"}}>{repo.language}</Typography>
+                            <Typography variant='caption' color='textSecondary' sx={{pt:"2px",pl:"5px"}}>{repo.language}</Typography>
                             <StarBorderIcon fontSize='small' sx={{marginLeft:"10px"}}/>
-                            <Typography variant='caption' sx={{paddingTop:"2px"}}>{repo.stargazers_count}</Typography>
+                            <Typography variant='caption' color='textSecondary' sx={{pt:"2px",pl:"5px"}}>{repo.stargazers_count}</Typography>
                         </Box>
                     </Grid2>
                 </Grid2>

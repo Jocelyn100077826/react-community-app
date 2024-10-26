@@ -1,3 +1,5 @@
+import {ReposSort,ReposSortDirection} from '@/app/enums/repoEnums';
+
 export interface Repository {
     id: number;
     node_id: string;
@@ -117,5 +119,37 @@ export interface Repository {
     push: boolean;
     triage: boolean;
     pull: boolean;
+  }
+    
+  export interface ReposState {
+    loading: boolean;
+    error: string | null;
+    repos: Repository[];
+    page: number;
+    query: string;
+    sort: ReposSort;
+    direction: ReposSortDirection;
+    total_count: number;
+    incomplete_results: boolean;
+  }
+
+  export interface SortParameters{
+    query: string;
+    sort: ReposSort;
+    direction: ReposSortDirection;
+  }
+
+  export interface SearchParameters{
+    owner: string;
+    query: string;
+    sort: ReposSort;
+    direction: ReposSortDirection;
+    page: number;
+  }
+
+  export interface QueryResults{
+    items: Repository[];
+    total_count:number;
+    incomplete_results:boolean;
   }
   

@@ -1,6 +1,5 @@
 'use client'
 import * as React from 'react'
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 //MUI Library
@@ -26,11 +25,16 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
   const [isDarkMode,setIsDarkMode] = React.useState<boolean>(false)
 
   React.useEffect(()=>{
-    console.log("Layout")
+    let pref = localStorage.getItem('isDarkMode');
+
+    if(pref == "true"){
+      setIsDarkMode(true);
+    }
   },[])
   
   const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsDarkMode(event.target.checked);
+    localStorage.setItem('isDarkMode',event.target.checked?"true":"false");
   };
 
   return (
@@ -39,9 +43,11 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
         <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
           <Provider store={store}>
             <CssBaseline />
-            <Box className="flex-box-right">
-              <Switch checked={isDarkMode} onChange={handleThemeChange} className='theme-switch' color="default"/>
-            </Box>
+            <AppBar position="static" sx={{bgcolor:"background.paper",boxShadow:"none",mb:"20px"}}>
+              <Toolbar>
+                <Switch checked={isDarkMode} onChange={handleThemeChange} className='theme-switch' color="default"/>
+              </Toolbar>
+            </AppBar>
             <main>{children}</main>
             </Provider>
         </ThemeProvider>
