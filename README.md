@@ -1,3 +1,38 @@
+# ReactJS Assessment
+
+This is a simple NextJS application that displays Open Source Repositories from Communities. 
+
+## User Stories
+
+1. **View Open Source Repositories**
+   - As a user, I should be able to view all open source repositories of the React Community, including:
+     - Name
+     - Description
+
+2. **Load More Repositories**
+   - As a user, I should be able to scroll down to load more repositories.
+
+3. **Search Repositories**
+   - As a user, I should be able to search for repositories using their name.
+
+4. **View Repository Details**
+   - As a user, I should be able to view the details of a repository, including:
+     - Name
+     - Description
+     - Number of Stars
+     - Number of Forks
+     - Number of Watchers
+     - Language
+
+## Tech Stack
+
+Framework: Next.js
+Language: TypeScript
+Linting: ESLint
+UI Library: Material UI
+State Management: Redux (with Redux Saga for side effects)
+
+============================================================================================================================================================
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -29,8 +64,3 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
