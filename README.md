@@ -26,13 +26,13 @@ This is a simple NextJS application that displays Open Source Repositories from 
 
 ## Tech Stack
 
-Framework: Next.js
-Language: TypeScript
-Linting: ESLint
-UI Library: Material UI
-State Management: Redux (with Redux Saga for side effects)
+- **Framework**: Next.js
+- **Language**: TypeScript
+- **Linting**: ESLint
+- **UI Library**: Material UI
+- **State Management**: Redux (+ Redux Saga)
 
-============================================================================================================================================================
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
