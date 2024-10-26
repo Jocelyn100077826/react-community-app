@@ -10,7 +10,6 @@ const fetchReposAPIWithQuery = async (search: SearchParameters) => {
     url += `page=${search.page}`
     url += `&sort=${search.sort}`
     url += `&order=${search.direction}`
-    console.log(url)
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
