@@ -1,8 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import { fetchReposSuccessAppend, fetchReposSuccess, fetchReposFailure } from '@/app/redux/slices/reposSlice';
-import {ReposState,SortParameters,SearchParameters} from '@/app/interfaces/Repo'
-import { ReposSort } from '@/app/enums/repoEnums';
+import {SearchParameters} from '@/app/interfaces/Repo'
 
 const fetchReposAPIWithQuery = async (search: SearchParameters) => {
   try {
@@ -24,8 +23,13 @@ function* fetchReposSaga(action: { type: string; payload: SearchParameters }):Ge
   try {
     const repos = yield call(fetchReposAPIWithQuery, action.payload);
     yield put(fetchReposSuccess(repos));
-  } catch (error:any) {
-    yield put(fetchReposFailure(error.message));
+  } catch (error:unknown) {
+    if (error instanceof Error) {
+      yield put(fetchReposFailure(error.message));
+    } else {
+      // Handle cases where error is not an instance of Error
+      yield put(fetchReposFailure("An unknown error occurred."));
+    }
   }
 }
 
@@ -34,8 +38,13 @@ function* fetchMoreReposSaga(action: { type: string; payload: SearchParameters }
   try {
     const repos = yield call(fetchReposAPIWithQuery, action.payload);
     yield put(fetchReposSuccessAppend(repos));
-  } catch (error:any) {
-    yield put(fetchReposFailure(error.message));
+  } catch (error:unknown) {
+    if (error instanceof Error) {
+      yield put(fetchReposFailure(error.message));
+    } else {
+      // Handle cases where error is not an instance of Error
+      yield put(fetchReposFailure("An unknown error occurred."));
+    }
   }
 }
 

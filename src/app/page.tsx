@@ -1,10 +1,10 @@
 'use client'
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useRouter } from 'next/navigation'
 import {Organization} from "@/app/interfaces/Organization";
 import _ from "lodash";
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '@/app/redux/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/redux/store';
 import {OrganisationCard} from '@/app/components/OrganizationCard'
 //UI
 import { Typography,Grid2,Box } from "@mui/material";
@@ -13,8 +13,7 @@ import { Typography,Grid2,Box } from "@mui/material";
 
 export default function Home() {
   const router = useRouter()
-  const dispatch: AppDispatch = useDispatch();
-  const { loading, orgs, error } = useSelector((state: RootState) => state.orgs);
+  const { loading, orgs } = useSelector((state: RootState) => state.orgs);
 
   const handleOnSelectOrg = (org:Organization)=>{
     router?.push('/'+org.login)

@@ -1,11 +1,13 @@
 'use client'
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {Organization} from "@/app/interfaces/Organization";
 //MUI libraries
-import { Typography,Grid2,Box,TextField,Card ,CardActionArea,CardMedia,CardContent, Button } from "@mui/material";
-import _ from "lodash";
+import { Typography,Grid2,Card,CardActionArea,CardMedia,CardContent } from "@mui/material";
 
-export const OrganisationCard = ({org,handleOnSelectOrg}:{org:Organization,handleOnSelectOrg:Function}) =>{
+
+type SelectOrgHandler = (org: Organization) => void;
+
+export const OrganisationCard = ({org,handleOnSelectOrg}:{org:Organization,handleOnSelectOrg:SelectOrgHandler}) =>{
   return(
     <Grid2 size={{xs:6,md:4,lg:3}}>
       <Card sx={{height:"100%"}}>

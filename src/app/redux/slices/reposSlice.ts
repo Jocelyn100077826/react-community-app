@@ -1,4 +1,4 @@
-import { Repository,ReposState,SortParameters,SearchParameters,QueryResults } from '@/app/interfaces/Repo';
+import { ReposState,SearchParameters,QueryResults } from '@/app/interfaces/Repo';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {ReposSort,ReposSortDirection} from '@/app/enums/repoEnums';
 

@@ -13,12 +13,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import _ from "lodash";
 //UI
 import { Typography,Grid2,Box,TextField,InputLabel,MenuItem,FormControl,Select,Button} from "@mui/material";
+import { SelectChangeEvent } from '@mui/material/Select';
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchIcon from '@mui/icons-material/Search';
-import { BorderRight } from "@mui/icons-material";
 
-export default function Owner({ params }:any) {
-  const { owner } = React.use<any>(params)
+
+export default function Owner({ params }: { params: Promise<{ owner: string }> }) {
+  const { owner } = React.use(params)
   const [search,setSearch] = useState<SearchParameters|null>(null);
   const [init, setInit] = useState<boolean>(false);
   
@@ -30,7 +31,7 @@ export default function Owner({ params }:any) {
   const [currentDirection, setCurrentDirection] = useState<ReposSortDirection>(direction);
 
   useEffect(() => {
-    let searchParams: SearchParameters = {
+    const searchParams: SearchParameters = {
       owner: owner,
       query:query,
       page:page,
@@ -47,7 +48,7 @@ export default function Owner({ params }:any) {
   }
 
   const fetchMoreData = ()=>{
-    let searchParams: SearchParameters = {
+    const searchParams: SearchParameters = {
       owner: owner,
       query:query,
       page:page+1,
@@ -59,9 +60,9 @@ export default function Owner({ params }:any) {
   }
 
   
-  const handleSortChange = (event: any) => {
+  const handleSortChange = (event: SelectChangeEvent<ReposSort>) => {
     setCurrentSort(event.target.value as ReposSort)
-    let searchParams: SearchParameters = {
+    const searchParams: SearchParameters = {
       owner: owner,
       query:query,
       page:page,
@@ -71,9 +72,9 @@ export default function Owner({ params }:any) {
     setSearch(searchParams)
   }; 
   
-  const handleDirectionChange = (event: any) => {
+  const handleDirectionChange = (event: SelectChangeEvent<ReposSortDirection>) => {
     setCurrentDirection(event.target.value as ReposSortDirection)
-    let searchParams: SearchParameters = {
+    const searchParams: SearchParameters = {
       owner: owner,
       query:query,
       sort: currentSort,
@@ -84,12 +85,12 @@ export default function Owner({ params }:any) {
   }; 
 
   const handleQueryTextField = (event: React.ChangeEvent<HTMLInputElement>)=>{
-    let searchParams: SearchParameters = {
+    const searchParams: SearchParameters = {
       owner: owner,
       query:event.target.value,
-      sort: sort,
+      sort: currentSort,
       page:page,
-      direction: direction,
+      direction: currentDirection,
     }
     setSearch(searchParams)
   }

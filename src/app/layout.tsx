@@ -1,31 +1,31 @@
 'use client'
 import * as React from 'react'
-import localFont from "next/font/local";
-import "./globals.css";
-//MUI Library
-import { lightTheme, darkTheme } from "@/app/helpers/themes"
-import { ThemeProvider} from '@mui/material/styles';
-import { CssBaseline, Switch, AppBar, Toolbar, Typography, Box } from '@mui/material';
-//Other
 import store from '@/app/redux/store';
 import { Provider } from 'react-redux';
+import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+//UI 
+import { lightTheme, darkTheme } from "@/app/helpers/themes"
+import { ThemeProvider} from '@mui/material/styles';
+import { CssBaseline, Switch, AppBar, Toolbar} from '@mui/material';
+
+
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+// const geistMono = localFont({
+//   src: "./fonts/GeistMonoVF.woff",
+//   variable: "--font-geist-mono",
+//   weight: "100 900",
+// });
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {
   const [isDarkMode,setIsDarkMode] = React.useState<boolean>(false)
 
   React.useEffect(()=>{
-    let pref = localStorage.getItem('isDarkMode');
+    const pref = localStorage.getItem('isDarkMode');
 
     if(pref == "true"){
       setIsDarkMode(true);

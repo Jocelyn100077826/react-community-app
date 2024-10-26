@@ -12,14 +12,14 @@ import PolylineIcon from '@mui/icons-material/Polyline';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CircleIcon from '@mui/icons-material/Circle';
 
-export default function Page({ params }:any) {
+export default function Page({ params }: { params: Promise<{ owner: string; repo:string }> }) {
   const dispatch: AppDispatch = useDispatch();
   const [init, setInit] = useState<boolean>(false);
-  const { owner,repo } = React.use<any>(params)
+  const { owner,repo } = React.use(params)
   const { currentRepo, loading, error } = useSelector((state: RootState) => state.repo);
 
   useEffect(() => {
-    let search = owner+"/"+repo
+    const search = owner+"/"+repo
     dispatch(fetchRepoRequest(search));
     setInit(true);
   }, [dispatch]);

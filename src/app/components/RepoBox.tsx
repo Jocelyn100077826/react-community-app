@@ -7,7 +7,9 @@ import { Typography,Grid2,Box,Card,CardActionArea } from '@mui/material';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import CircleIcon from '@mui/icons-material/Circle';
 
-export default function RepoBox({repo,handleOnSelectRepo}:{repo:Repository,handleOnSelectRepo:Function}) {
+type SelectRepoHandler = (repo: Repository) => void;
+
+export default function RepoBox({repo,handleOnSelectRepo}:{repo:Repository,handleOnSelectRepo:SelectRepoHandler}) {
     
     return (
         <Card key={repo.id} sx={{bgcolor:'background.paper',borderRadius:0}} style={{borderBottom:"1px solid rgba(0,0,0,0.15)"}}>

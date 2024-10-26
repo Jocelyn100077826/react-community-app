@@ -4,7 +4,7 @@ import { fetchOrgsSuccess, fetchOrgsFailure } from '@/app/redux/slices/orgsSlice
 
 const fetchOrgAPI = async (search: string) => {
   try {
-    let url = process.env.NEXT_PUBLIC_GITHUB_API + `/users/${search}`
+    const url = process.env.NEXT_PUBLIC_GITHUB_API + `/users/${search}`
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
@@ -18,8 +18,13 @@ function* fetchOrgSaga(action: { type: string; payload: string }):Generator<obje
   try {
     const repos = yield call(fetchOrgAPI, action.payload);
     yield put(fetchOrgsSuccess(repos));
-  } catch (error:any) {
-    yield put(fetchOrgsFailure(error.message));
+  } catch (error:unknown) {
+    if (error instanceof Error) {
+      yield put(fetchOrgsFailure(error.message));
+    } else {
+      // Handle cases where error is not an instance of Error
+      yield put(fetchOrgsFailure("An unknown error occurred."));
+    }
   }
 }
 
