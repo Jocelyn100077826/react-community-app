@@ -2,7 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['avatars.githubusercontent.com'], // Allow images from this domain
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: 'avatars.githubusercontent.com',
+        pathname: "**",
+      },
+    ],
   },
 };
 

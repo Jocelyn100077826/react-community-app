@@ -29,6 +29,7 @@ export default function Owner({ params }: { params: Promise<{ owner: string }> }
   const { currentOrg } = useSelector((state: RootState) => state.orgs);
   const [currentSort, setCurrentSort] = useState<ReposSort>(sort);
   const [currentDirection, setCurrentDirection] = useState<ReposSortDirection>(direction);
+  const [currentQuery, setCurrentQuery] = useState<string>(query);
 
   useEffect(() => {
     const searchParams: SearchParameters = {
@@ -50,7 +51,7 @@ export default function Owner({ params }: { params: Promise<{ owner: string }> }
   const fetchMoreData = ()=>{
     const searchParams: SearchParameters = {
       owner: owner,
-      query:query,
+      query:currentQuery,
       page:page+1,
       sort: currentSort,
       direction: currentDirection
@@ -64,7 +65,7 @@ export default function Owner({ params }: { params: Promise<{ owner: string }> }
     setCurrentSort(event.target.value as ReposSort)
     const searchParams: SearchParameters = {
       owner: owner,
-      query:query,
+      query:currentQuery,
       page:page,
       sort: event.target.value as ReposSort,
       direction: currentDirection
@@ -76,7 +77,7 @@ export default function Owner({ params }: { params: Promise<{ owner: string }> }
     setCurrentDirection(event.target.value as ReposSortDirection)
     const searchParams: SearchParameters = {
       owner: owner,
-      query:query,
+      query:currentQuery,
       sort: currentSort,
       page:page,
       direction: event.target.value as ReposSortDirection,
@@ -85,6 +86,7 @@ export default function Owner({ params }: { params: Promise<{ owner: string }> }
   }; 
 
   const handleQueryTextField = (event: React.ChangeEvent<HTMLInputElement>)=>{
+    setCurrentQuery(event.target.value)
     const searchParams: SearchParameters = {
       owner: owner,
       query:event.target.value,
@@ -121,7 +123,7 @@ export default function Owner({ params }: { params: Promise<{ owner: string }> }
           <Grid2 container size={{xs:12, md:8}}>
             <Grid2 size={9}>
               <TextField fullWidth placeholder="Search by name" variant="outlined" size="small" className="textinput-long" onChange={handleQueryTextField}
-              sx={{bgcolor:'background.paper',borderColor: 'primary.contrastText',marginBottom:1}}
+              sx={{bgcolor:'background.paper',borderColor: 'primary.contrastText',marginBottom:1}} value={currentQuery}
               slotProps={{
                 input: {
                   startAdornment: <SearchIcon fontSize="small"/>,
